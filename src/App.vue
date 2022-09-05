@@ -159,16 +159,18 @@ export default {
 }
 .city-question {
 	position: absolute;
-    width: 100%;
+    width: calc(100% - 30px);
 	top: 60px;
     z-index: 100;
+    background-color: var(--yawhite);
 }
 .city-list {
 	position: absolute;
-    width: 100%;
+    width: calc(100% - 30px);
 	top: 60px;
     z-index: 100;
 	font-size: 1rem;
+    background-color: var(--yawhite);
 }
 .city-list a.select-city-item-unselected::after {
 	content: 'Выбрать';
@@ -209,18 +211,6 @@ export default {
 .city-list svg {
     margin-right: 10px;
 	fill: var(--yamiddlegray);
-}
-
-@media (max-width: 767px) {
-	
-	.city-question {
-		position: absolute;
-		width: 100vw;
-		top: 35px;
-		z-index: 100;
-		display: none;
-		left: 0;
-	}
 }
 
 @media (max-width: 991px) {
