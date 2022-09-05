@@ -1,5 +1,5 @@
 <template>
-    <div class="city-row pt-3">
+    <div class="city-row py-3 px-3 ps-lg-0">
         <div class="city-col text-lg-end">
             <a href="#" class="c-yablue c-h-yadarkblue text-decoration-none text-minus-minus w-100" @click.prevent="toggleList">
                 {{ title }}
@@ -150,6 +150,7 @@ export default {
 </script>
 
 <style scoped>
+
 .city-row {
     display: grid;
     justify-content: space-between;
@@ -220,5 +221,11 @@ export default {
 		display: none;
 		left: 0;
 	}
+}
+
+@media (max-width: 991px) {
+	.city-row {
+        background-color: var(--yalightgray);
+    }
 }
 </style>
