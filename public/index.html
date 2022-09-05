@@ -358,6 +358,11 @@ a.a-h-svg-visible:hover svg {
 	display: none;
 	position: unset;
 }
+
+.align-items-center {
+    -ms-flex-align: center!important;
+    align-items: center!important;
+}
     </style>
 
   </head>
@@ -366,7 +371,7 @@ a.a-h-svg-visible:hover svg {
         <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
         </noscript>
         <!-- built files will be auto injected -->
-        <div class="position-relative desktop my-5">
+        <div class="position-relative my-5">
             <div class="container top-menu">
                 <div class="row">
                     <div class="col-2">
@@ -399,7 +404,7 @@ a.a-h-svg-visible:hover svg {
                         </li>
                         </ul>
                     </div>
-                    <div id="YAppsCity" class="col-3 pt-3 position-relative ps-0 text-end" style="padding-top: 1.25rem! important;" items='[{"code":"krd","name":"Краснодар"},{"code":"yabl","name":"Яблоновский"},{"code":"nvr","name":"Новороссийск"},{"code":"mkp","name":"Майкоп"}]'></div>
+                    <div id="YAppsCity" class="col-12 col-lg-3 ps-lg-0 position-relative align-items-center" items='[{"code":"krd","name":"Краснодар"},{"code":"yabl","name":"Яблоновский"},{"code":"nvr","name":"Новороссийск"},{"code":"mkp","name":"Майкоп"}]'></div>
                 </div>
             </div>
         </div>

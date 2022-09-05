@@ -1,6 +1,6 @@
 <template>
-    <div class="city-row">
-        <div class="city-col">
+    <div class="city-row pt-3">
+        <div class="city-col text-lg-end">
             <a href="#" class="c-yablue c-h-yadarkblue text-decoration-none text-minus-minus w-100" @click.prevent="toggleList">
                 {{ title }}
                 <svg xmlns="http://www.w3.org/2000/svg" v-if="showList"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#corner-up"></use></svg>
@@ -34,8 +34,8 @@
                 </a>
             </div>
         </div>
-        <div class="phone-col">
-            <a :href="'tel:+'+FormatPhoneIn(phone)" class="c-yablue c-h-yadarkblue text-decoration-none text-uppercase text-minus w-100">{{ FormatPhoneOut(phone) }}</a>
+        <div class="phone-col text-end">
+            <a :href="'tel:+'+FormatPhoneIn(phone)" class="c-yablue c-h-yadarkblue text-decoration-none text-uppercase text-minus desktop">{{ FormatPhoneOut(phone) }}</a>
             <a href="/cars/new/#/favorites" class="text-decoration-none ms-1" role="topmmenufavorites">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#favorites"></use></svg>
             </a>
