@@ -36,11 +36,13 @@
         </div>
         <div class="phone-col text-end">
             <a :href="'tel:+'+FormatPhoneIn(phone)" class="c-yablue c-h-yadarkblue text-decoration-none text-uppercase text-minus desktop">{{ FormatPhoneOut(phone) }}</a>
-            <a href="/cars/new/#/favorites" class="text-decoration-none ms-1" role="topmmenufavorites">
+            <a href="/cars/new/favorites" class="text-decoration-none ms-1" role="topmmenufavorites">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#favorites"></use></svg>
+                <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="favorites.length > 0">{{favorites.length}}</span>
             </a>
-            <a href="/cars/new/#/compare" class="text-decoration-none ms-1" role="topmmenucompare">
+            <a href="/cars/new/compare" class="text-decoration-none ms-1" role="topmmenucompare">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#compare"></use></svg>
+                <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="compare.length > 0">{{compare.length}}</span>
             </a>
         </div>
     </div>
@@ -58,6 +60,9 @@ export default {
             showList: false,
             externalShowList: Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST')) || false,
 
+            com: localStorage.getItem('CIS_COMPARE') || null,
+            fav: localStorage.getItem('CIS_FAVORITES') || null,
+
             phone: window.calltouch_phone || '78612031866'
         }
     },
@@ -67,6 +72,12 @@ export default {
         },
         selected: function() {
             return (this.sel) ? this.sel.split(',') : []
+        },
+        compare: function() {
+            return JSON.parse(this.com) || []
+        },
+        favorites: function() {
+            return JSON.parse(this.fav) || []
         },
         title: function() {
             let res = 'Все города'
@@ -104,6 +115,8 @@ export default {
             if ( localStorage.getItem('YAPP_SELECTED_CITY') != this.sel ) this.sel = localStorage.getItem('YAPP_SELECTED_CITY')
             if ( localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST') != this.externalShowList ) this.externalShowList = Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST'))
             if ( this.externalShowList ) this.showList = true
+            if ( localStorage.getItem('CIS_COMPARE') != this.com ) this.com = localStorage.getItem('CIS_COMPARE')
+            if ( localStorage.getItem('CIS_FAVORITES') != this.fav ) this.fav = localStorage.getItem('CIS_FAVORITES')
         }, 100);
     },
     methods: {
