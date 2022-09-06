@@ -1,7 +1,7 @@
 <template>
     <div class="city-row py-3 px-3 ps-lg-0">
         <div class="city-col text-lg-end">
-            <a href="#" class="c-yablue c-h-yadarkblue text-decoration-none text-minus-minus w-100" @click.prevent="toggleList">
+            <a href="#" class="text-decoration-none text-minus-minus w-100" @click.prevent="toggleList">
                 {{ title }}
                 <svg xmlns="http://www.w3.org/2000/svg" v-if="showList"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#corner-up"></use></svg>
                 <svg xmlns="http://www.w3.org/2000/svg" v-else><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#corner-down"></use></svg>
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="phone-col text-end">
-            <a :href="'tel:+'+FormatPhoneIn(phone)" class="c-yablue c-h-yadarkblue text-decoration-none text-uppercase text-minus desktop">{{ FormatPhoneOut(phone) }}</a>
+            <a :href="'tel:+'+FormatPhoneIn(phone)" class="text-decoration-none text-uppercase text-minus desktop">{{ FormatPhoneOut(phone) }}</a>
             <a href="/cars/new/favorites" class="text-decoration-none ms-1" role="topmmenufavorites">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#favorites"></use></svg>
                 <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="favorites.length > 0">{{favorites.length}}</span>
