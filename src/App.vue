@@ -63,7 +63,7 @@ export default {
             com: localStorage.getItem('CIS_COMPARE') || null,
             fav: localStorage.getItem('CIS_FAVORITES') || null,
 
-            phone: window.calltouch_phone || '78612031866'
+            phone: document.getElementById('YAppsCity').getAttribute('phone') || '78612127200'
         }
     },
     computed: {
@@ -117,6 +117,7 @@ export default {
             if ( this.externalShowList ) this.showList = true
             if ( localStorage.getItem('CIS_COMPARE') != this.com ) this.com = localStorage.getItem('CIS_COMPARE')
             if ( localStorage.getItem('CIS_FAVORITES') != this.fav ) this.fav = localStorage.getItem('CIS_FAVORITES')
+            if ( typeof window.calltouch_phone != 'undefined' && window.calltouch_phone != this.phone ) this.phone = window.calltouch_phone
         }, 100);
     },
     methods: {
