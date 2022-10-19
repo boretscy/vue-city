@@ -36,11 +36,11 @@
         </div>
         <div class="phone-col text-end">
             <a :href="'tel:+'+FormatPhoneIn(phone)" class="text-decoration-none text-uppercase text-minus desktop">{{ FormatPhoneOut(phone) }}</a>
-            <a href="/cars/new/favorites" class="text-decoration-none ms-1" role="topmmenufavorites">
+            <a :href="'/cars/'+link+'/favorites'" class="text-decoration-none ms-1" role="topmmenufavorites">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#favorites"></use></svg>
                 <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="favorites.length > 0">{{favorites.length}}</span>
             </a>
-            <a href="/cars/new/compare" class="text-decoration-none ms-1" role="topmmenucompare">
+            <a :href="'/cars/'+link+'/compare'" class="text-decoration-none ms-1" role="topmmenucompare">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#compare"></use></svg>
                 <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="compare.length > 0">{{compare.length}}</span>
             </a>
@@ -96,6 +96,12 @@ export default {
                     break
             }
             return res
+        },
+        link: function() {
+            let res = 'new'
+            if ( window.location.host == 'yug-avto-expert.ru') res = 'used'
+
+            return res
         }
     },
     directives: {
@@ -147,7 +153,6 @@ export default {
         },
 
         close() {
-            console.log('sdgvljsdhvsk')
         },
         FormatPhoneOut(q) {
             q = this.FormatPhoneIn(q);
