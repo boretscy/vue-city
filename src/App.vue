@@ -56,7 +56,7 @@ export default {
         return {
             raw: document.getElementById('YAppsCity').getAttribute('items') || null,
             sel: localStorage.getItem('YAPP_SELECTED_CITY') || null,
-            showQuestion: true,
+            showQuestion: false,
             showList: false,
             externalShowList: Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST')) || false,
 
@@ -83,7 +83,7 @@ export default {
             let res = 'Все города'
             switch ( this.selected.length ) {
                 case 0:
-                    res = res = 'Все города'
+                    res = 'Все города'
                     break
                 case 1:
                     res = this.selected[0]
@@ -117,6 +117,11 @@ export default {
         }
     },
     mounted: function() {
+        if ( !this.sel ) {
+            this.items.forEach( (e) => {
+                this.toggleItem(e.name)
+            })
+        }
         setInterval(() => {
             if ( localStorage.getItem('YAPP_SELECTED_CITY') != this.sel ) this.sel = localStorage.getItem('YAPP_SELECTED_CITY')
             if ( localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST') != this.externalShowList ) this.externalShowList = Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST'))
@@ -163,7 +168,7 @@ export default {
             if ( q.length == 10 ) q = '7'+q
             if ( q.length == 7 ) q = '7861'+q
             return '7'+q.slice(1);
-        },
+        }
     }
 }
 </script>
