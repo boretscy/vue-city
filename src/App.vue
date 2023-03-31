@@ -192,7 +192,7 @@ export default {
 	position: absolute;
     width: calc(100% - 30px);
 	top: 60px;
-    z-index: 100;
+    z-index: 1160;
 	font-size: 1rem;
     background-color: var(--yawhite);
 }
