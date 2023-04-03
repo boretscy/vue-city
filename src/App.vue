@@ -24,8 +24,8 @@
                     :key="indx"
                     href="#" 
                     class="c-yablack c-h-yablackgray py-2 px-3 text-decoration-none d-block position-relative"
-                    :class="{'select-city-item-selected': selected.indexOf(item.name)>=0, 'select-city-item-unselected': selected.indexOf(item.name)<0}"
-                    @click.prevent="toggleItem(item.name)"
+                    :class="{'select-city-item-selected': selected.indexOf(item.code)>=0, 'select-city-item-unselected': selected.indexOf(item.code)<0}"
+                    @click.prevent="toggleItem(item.code)"
                     >
                     {{ item.name }}
                     <span class="select-city-item-check">
@@ -36,11 +36,11 @@
         </div>
         <div class="phone-col text-end">
             <a :href="'tel:+'+FormatPhoneIn(phone)" class="text-decoration-none text-uppercase text-minus desktop">{{ FormatPhoneOut(phone) }}</a>
-            <a :href="'/cars/'+link+'/favorites'" class="text-decoration-none ms-1" role="topmmenufavorites">
+            <a :href="baseUrl+'/favorites/'" class="text-decoration-none ms-1" role="topmmenufavorites">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#favorites"></use></svg>
                 <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="favorites.length > 0">{{favorites.length}}</span>
             </a>
-            <a :href="'/cars/'+link+'/compare'" class="text-decoration-none ms-1" role="topmmenucompare">
+            <a :href="baseUrl+'/compare/'" class="text-decoration-none ms-1" role="topmmenucompare">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#compare"></use></svg>
                 <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="compare.length > 0">{{compare.length}}</span>
             </a>
@@ -55,13 +55,14 @@ export default {
     data() {
         return {
             raw: document.getElementById('YAppsCity').getAttribute('items') || null,
-            sel: localStorage.getItem('YAPP_SELECTED_CITY') || null,
+            baseUrl: document.getElementById('YAppsCity').getAttribute('url') || null,
+            sel: this.$cookies.get('SELECTED_CITY') || '',
             showQuestion: false,
             showList: false,
-            externalShowList: Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST')) || false,
+            externalShowList: Boolean(localStorage.getItem('SELECTED_CITY_SHOW_LIST')) || false,
 
-            com: localStorage.getItem('CIS_COMPARE') || null,
-            fav: localStorage.getItem('CIS_FAVORITES') || null,
+            com: this.$cookies.get('CIS_COMPARE') || null,
+            fav: this.$cookies.get('CIS_FAVORITES') || null,
 
             phone: document.getElementById('YAppsCity').getAttribute('phone') || '78612127200'
         }
@@ -71,13 +72,13 @@ export default {
             return JSON.parse(this.raw) || []
         },
         selected: function() {
-            return (this.sel) ? this.sel.split(',') : []
+            return this.sel || []
         },
         compare: function() {
-            return JSON.parse(this.com) || []
+            return this.com || []
         },
         favorites: function() {
-            return JSON.parse(this.fav) || []
+            return this.fav || []
         },
         title: function() {
             let res = 'Все города'
@@ -86,7 +87,9 @@ export default {
                     res = 'Все города'
                     break
                 case 1:
-                    res = this.selected[0]
+                    this.items.forEach( (item) => {
+                        if ( item.code == this.selected[0] ) res = item.name
+                    })
                     break
                 case this.items.length:
                     res = 'Все города'
@@ -95,12 +98,6 @@ export default {
                     res = this.selected.length+' города'
                     break
             }
-            return res
-        },
-        link: function() {
-            let res = 'new'
-            if ( window.location.host == 'yug-avto-expert.ru') res = 'used'
-
             return res
         }
     },
@@ -119,45 +116,50 @@ export default {
     mounted: function() {
         if ( !this.sel ) {
             this.items.forEach( (e) => {
-                this.toggleItem(e.name)
+                this.toggleItem(e.code)
             })
         }
+
+        console.log(this.selected)
         setInterval(() => {
-            if ( localStorage.getItem('YAPP_SELECTED_CITY') != this.sel ) this.sel = localStorage.getItem('YAPP_SELECTED_CITY')
-            if ( localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST') != this.externalShowList ) this.externalShowList = Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST'))
+            if ( this.$cookies.get('SELECTED_CITY') != this.sel ) this.sel = this.$cookies.get('SELECTED_CITY')
+            if ( localStorage.getItem('SELECTED_CITY_SHOW_LIST') != this.externalShowList ) this.externalShowList = Boolean(localStorage.getItem('SELECTED_CITY_SHOW_LIST'))
             if ( this.externalShowList ) this.showList = true
-            if ( localStorage.getItem('CIS_COMPARE') != this.com ) this.com = localStorage.getItem('CIS_COMPARE')
-            if ( localStorage.getItem('CIS_FAVORITES') != this.fav ) this.fav = localStorage.getItem('CIS_FAVORITES')
-            if ( typeof window.calltouch_phone != 'undefined' && window.calltouch_phone != this.phone ) this.phone = window.calltouch_phone
+            if ( this.$cookies.get('CIS_COMPARE') != this.sel ) this.com = this.$cookies.get('CIS_COMPARE')
+            if ( this.$cookies.get('CIS_FAVORITES') != this.sel ) this.fav = this.$cookies.get('CIS_FAVORITES')
+            if ( typeof window.calltouch_phone != 'undefined' && window.calltouch_phone != this.phone ) this.phone = window.calltouch_phone 
         }, 100);
     },
     methods: {
         toggleList() {
             this.showList = !this.showList
-            localStorage.setItem('YAPP_SELECTED_CITY_SHOW_LIST', '')
+            localStorage.setItem('SELECTED_CITY_SHOW_LIST', '')
         },
-        toggleItem(name, flag = true) {
-            let indx = this.selected.indexOf(name)
+        toggleItem(code, flag = true) {
+            let indx = this.selected.indexOf(code)
             if ( indx >= 0 ) {
                 this.selected.splice(indx, 1)
             } else {
-                this.selected.push(name)
+                this.selected.push(code)
             }
-            localStorage.setItem('YAPP_SELECTED_CITY', ((this.selected.length)?this.selected.join(','):''))
+            
+            this.$cookies.set('SELECTED_CITY', JSON.stringify(this.selected))
             this.showQuestion = false
             if ( flag ) this.toggleList()
         },
         setAll() {
             let s = []
             this.items.forEach( (i) => {
-                s.push(i.name)
+                s.push(i.code)
             })
-            localStorage.setItem('YAPP_SELECTED_CITY', ((s.length)?s.join(','):''))
+            
+            this.$cookies.set('SELECTED_CITY', JSON.stringify(s))
             this.showQuestion = false
             this.toggleList()
         },
 
         close() {
+            if ( this.showList ) this.showList = false
         },
         FormatPhoneOut(q) {
             q = this.FormatPhoneIn(q);
