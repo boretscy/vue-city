@@ -59,7 +59,7 @@ export default {
             sel: this.$cookies.get('SELECTED_CITY') || '',
             showQuestion: false,
             showList: false,
-            externalShowList: Boolean(localStorage.getItem('SELECTED_CITY_SHOW_LIST')) || false,
+            externalShowList: Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST')) || false,
 
             com: this.$cookies.get('CIS_COMPARE') || null,
             fav: this.$cookies.get('CIS_FAVORITES') || null,
@@ -106,7 +106,6 @@ export default {
             bind(el, binding) {
                 el.addEventListener('click', e => e.stopPropagation());
                 document.body.addEventListener('click', binding.value);
-                console.log('sdlgjsdhl')
             },
             unbind(el, binding) {
                 document.body.removeEventListener('click', binding.value);
@@ -119,11 +118,9 @@ export default {
                 this.toggleItem(e.code)
             })
         }
-
-        console.log(this.selected)
         setInterval(() => {
             if ( this.$cookies.get('SELECTED_CITY') != this.sel ) this.sel = this.$cookies.get('SELECTED_CITY')
-            if ( localStorage.getItem('SELECTED_CITY_SHOW_LIST') != this.externalShowList ) this.externalShowList = Boolean(localStorage.getItem('SELECTED_CITY_SHOW_LIST'))
+            if ( localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST') != this.externalShowList ) this.externalShowList = Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST'))
             if ( this.externalShowList ) this.showList = true
             if ( this.$cookies.get('CIS_COMPARE') != this.sel ) this.com = this.$cookies.get('CIS_COMPARE')
             if ( this.$cookies.get('CIS_FAVORITES') != this.sel ) this.fav = this.$cookies.get('CIS_FAVORITES')
@@ -133,7 +130,7 @@ export default {
     methods: {
         toggleList() {
             this.showList = !this.showList
-            localStorage.setItem('SELECTED_CITY_SHOW_LIST', '')
+            localStorage.setItem('YAPP_SELECTED_CITY_SHOW_LIST', '')
         },
         toggleItem(code, flag = true) {
             let indx = this.selected.indexOf(code)
