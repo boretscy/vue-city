@@ -36,11 +36,11 @@
         </div>
         <div class="phone-col text-end">
             <a :href="'tel:+'+FormatPhoneIn(phone)" class="text-decoration-none text-uppercase text-minus desktop">{{ FormatPhoneOut(phone) }}</a>
-            <a :href="baseUrl+'/favorites/'" class="text-decoration-none ms-1 hint--top-left" role="topmmenufavorites" aria-label="Избранное">
+            <a :href="baseUrl+'/favorites/'" class="text-decoration-none ms-2 hint--top-left" role="topmmenufavorites" aria-label="Избранное">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#favorites"></use></svg>
                 <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="favorites.length > 0">{{favorites.length}}</span>
             </a>
-            <a :href="baseUrl+'/compare/'" class="text-decoration-none ms-1 int--top-left" role="topmmenucompare" aria-label="Сравнение">
+            <a :href="baseUrl+'/compare/'" class="text-decoration-none ms-2 hint--top-left" role="topmmenucompare" aria-label="Сравнение">
                 <svg xmlns="http://www.w3.org/2000/svg"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#compare"></use></svg>
                 <span class="c-yawhite bg-yablue b-white d-flex justify-content-evenly top-menu-icon-label" v-if="compare.length > 0">{{compare.length}}</span>
             </a>
