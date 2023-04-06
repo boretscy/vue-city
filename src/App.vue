@@ -179,7 +179,7 @@ export default {
     display: grid;
     justify-content: space-between;
     align-items: center;
-    grid-template-columns: 47% 53%;
+    grid-template-columns: 40% 60%;
 }
 .city-question {
 	position: absolute;
