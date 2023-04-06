@@ -59,7 +59,7 @@ export default {
             sel: this.$cookies.get('SELECTED_CITY') || '',
             showQuestion: false,
             showList: false,
-            externalShowList: Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST')) || false,
+            externalShowList: false,
 
             com: this.$cookies.get('CIS_COMPARE') || null,
             fav: this.$cookies.get('CIS_FAVORITES') || null,
