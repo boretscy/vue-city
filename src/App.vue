@@ -113,6 +113,7 @@ export default {
         }
     },
     mounted: function() {
+        localStorage.setItem('YAPP_SELECTED_CITY_SHOW_LIST', '')
         if ( !this.sel ) {
             this.items.forEach( (e) => {
                 this.toggleItem(e.code)
