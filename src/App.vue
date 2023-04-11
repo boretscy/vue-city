@@ -114,17 +114,14 @@ export default {
     },
     mounted: function() {
         localStorage.setItem('YAPP_SELECTED_CITY_SHOW_LIST', '')
-        if ( !this.sel ) {
-            this.items.forEach( (e) => {
-                this.toggleItem(e.code)
-            })
-        }
+        this.externalShowList = false
+        if ( !this.sel.length ) this.setAll()
         setInterval(() => {
             if ( this.$cookies.get('SELECTED_CITY') != this.sel ) this.sel = this.$cookies.get('SELECTED_CITY')
             if ( Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST')) != this.externalShowList ) this.externalShowList = Boolean(localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST'))
             if ( this.externalShowList ) this.showList = true
-            if ( this.$cookies.get('CIS_COMPARE') != this.sel ) this.com = this.$cookies.get('CIS_COMPARE')
-            if ( this.$cookies.get('CIS_FAVORITES') != this.sel ) this.fav = this.$cookies.get('CIS_FAVORITES')
+            if ( this.$cookies.get('CIS_COMPARE') != this.com ) this.com = this.$cookies.get('CIS_COMPARE')
+            if ( this.$cookies.get('CIS_FAVORITES') != this.fav ) this.fav = this.$cookies.get('CIS_FAVORITES')
             if ( typeof window.calltouch_phone != 'undefined' && window.calltouch_phone != this.phone ) this.phone = window.calltouch_phone 
         }, 100);
     },
