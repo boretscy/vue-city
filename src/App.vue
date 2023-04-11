@@ -121,7 +121,7 @@ export default {
         }
         setInterval(() => {
             if ( this.$cookies.get('SELECTED_CITY') != this.sel ) this.sel = this.$cookies.get('SELECTED_CITY')
-            if ( typeof localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST') != 'undefined' && localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST') == 'true' ) this.showList = true
+            this.showList = ( typeof localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST') != 'undefined' && localStorage.getItem('YAPP_SELECTED_CITY_SHOW_LIST') == 'show' ) 
             if ( this.$cookies.get('CIS_COMPARE') != this.sel ) this.com = this.$cookies.get('CIS_COMPARE')
             if ( this.$cookies.get('CIS_FAVORITES') != this.sel ) this.fav = this.$cookies.get('CIS_FAVORITES')
             if ( typeof window.calltouch_phone != 'undefined' && window.calltouch_phone != this.phone ) this.phone = window.calltouch_phone 
