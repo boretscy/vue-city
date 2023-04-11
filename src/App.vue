@@ -150,7 +150,7 @@ export default {
             
             this.$cookies.set('SELECTED_CITY', JSON.stringify(s))
             this.showQuestion = false
-            this.toggleList()
+            localStorage.setItem('YAPP_SELECTED_CITY_SHOW_LIST', '')
         },
 
         close() {
